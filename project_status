@@ -1,0 +1,55 @@
+Later Workons (Trav)
+
+
+2. place autocomplete ->google
+1. Validations && Registration
+3. Search already product listings IN the table itself template(DashboardFunctionality)
+4. Localization (makemessages -l am, compilemessages -l am)
+6. SELENIUM Testing
+7. host to server
+8. YENEPAY Integration
+
+XDone
+-----
+- Create Custome User
+- Email Send
+- Fileuploads (Finish the form)->Alert Message left when redirecting
+- Add date to form and db
+- Archives app (and display on dashboard)->Sort listorders and modify Table ui
+- Display already made product requests (Dashboard Functionality.mp4)x
+- Admin customization
+- CREATIVEtEAM_FAKEaVATAR_UI and Pictures (bootstrap)
+- Fill legitimate content
+- Reverse map to form copy JavaScript
+- 
+- deploy to github
+- 
+
+
+
+ PRICE
+ EXACT DELIVERY DATE
+
+
+<~- Read the T & Conditions ~->
+
+E-Portal of ESSTI Satellite Imagery Data Management(main)
+===================================================
+
+ESSTI Satellite Imagery Product Order(subpage)
+=====================================
+
+Database
+========
+
+Order Form Entries
+==================
+
+- augmented multi-mission satellite receiver GS
+- Terms and Agreements(Conditions)
+- Notify and confirm by mail of the availability (after ESSTI review the request)
+- YENEPAY Integration
+
+- use MapWork gapi key django also particle 
+- Experiment with captch in env
+- Confirmation currently disabled in 
