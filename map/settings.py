@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pvqe&sy5v%+b)4z^mw6ib)iww0#epnk4clw91_d+h)p&)x0mm0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['etrss1.herokuapp.com']
+ALLOWED_HOSTS = ['etrss1.herokuapp.com', 'localhost', '127.0.0.1', '*']
 
 # Application definition
 
