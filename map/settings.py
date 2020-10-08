@@ -27,7 +27,7 @@ SECRET_KEY = 'pvqe&sy5v%+b)4z^mw6ib)iww0#epnk4clw91_d+h)p&)x0mm0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['etrss1.herokuapp.com']
 
 # Application definition
 
