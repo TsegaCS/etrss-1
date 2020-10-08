@@ -1,0 +1,102 @@
+ {% load static %} {% load i18n %} {% load l10n %} {% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% trans "Sign Up to ESSTI'S EPRS" %}</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/logreg/style.css' %}">
+</head>
+<!-- <body style="background: url('{{ STATIC_URL }} img/signup-bg.jpg') no-repeat;"> -->
+
+<body style="background-image: url('{% static 'img/banner/4banner.jpg' %}')">
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="{% static 'img/signup-bg.jpg' %}" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" action="{% url 'register' %}" id="signup-form" class="signup-form">
+                        {% csrf_token %}
+                        <h2 class="form-title">{% trans "Create account" %}</h2>
+                        
+
+                        <!-- Alerts -->
+                        {% include 'partials/_alerts.html' %}
+
+                        <div class="form-group">
+                            <input id="username" name="username" type="text" class="validate form-input green-text" placeholder="Your Name">
+                            <!-- <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/> -->
+                        </div>
+                        <div class="form-group">
+                            <input id="email" name="email" type="email" class="validate form-input green-text" placeholder="Your Email">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="organization" name="organization" type="text" class="validate form-input green-text" placeholder="Requesting Organization"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="country" name="country" type="text" class="validate form-input green-text" placeholder="Country"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="city" name="city" type="text" class="validate form-input green-text" placeholder="City"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input id="department" name="department" type="text" class="validate form-input green-text" placeholder="Division/Department">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="address" name="address" type="text" class="validate form-input green-text" placeholder="Address"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="phone" name="phone" type="text" class="validate form-input green-text" placeholder="Phone/Fax"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input id="password" name="password" type="password" class="validate form-input green-text" placeholder="Password">
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input id="password2" name="password2" type="password" class="validate form-input green-text" placeholder="Repeat your password">
+                            <!-- <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/> -->
+                        </div>
+
+                        <div class="form-group">
+                            <!-- <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" /> -->
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>{% trans "Hereby, I agree to all the statements of " %}<a href="#" class="term-service"> {% trans "ESSTI'S Terms of service" %}</a></label>
+                        </div>
+                        <div class="form-group">
+                            <!-- <button type="submit" id="save" value="save" class="waves-effect waves-light btn">Register</button> -->
+                            <input type="submit" name="submit" id="save" class="form-submit" value="Sign up" />
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        {% trans "Have already an account?" %} <a href="login" class="loginhere-link">{% trans "Login here" %}</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    {% endblock %}
+
+    <!-- JS -->
+    <script src="{% static 'js/logreg/main.js' %}"></script>

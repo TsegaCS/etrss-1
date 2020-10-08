@@ -1,0 +1,103 @@
+{% load static %} {% load l10n %} {% load i18n %}
+<header>
+    <div class="header-area ">
+        <div id="sticky-header" class="main-header-area">
+            <div class="container-fluid p-0">
+                <div class="row align-items-center no-gutters">
+                    <div class="col-xl-2 col-lg-2">
+
+
+                        <div class="logo-img">
+                            <a href="{% url 'home' %}">
+                                <h1 style="color: whitesmoke; font-size: x-large; padding-left: 50px; padding-top: 10px;">
+                                    ETRSS-1</h1>
+
+                                <!-- <img src="{% static 'img/logo.png' %}" alt=""> -->
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-8 col-lg-8">
+
+                        <div class="main-menu  d-none d-lg-block text-center">
+
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a class="active" href="{% url 'homes' %}">{% trans "home" %}</a></li>
+                                    <!-- <li><a href="{% url 'map' %}">ETRSS-1 product request</a> -->
+                                    <li><a href="{% url 'map' %}">{% trans "ETRSS-1 product request" %}<i
+                                            class="ti-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'map' %}">{% trans "New Request" %}</a></li>
+                                            <li><a href="{% url 'home' %}">{% trans "From Archive" %}</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li><a href="{% url 'homes' %}#featured">{% trans "Portfolio" %}</a></li>
+
+                                    <li><a href="{% url 'homes' %}#about">{% trans "About" %}</a></li>
+                                    <li><a href="{% url 'home' %}#get_in_tauch_area">{% trans "Contact" %}</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+
+                    {% if user.is_authenticated %}
+                        <div class="col-lg-2 d-none d-lg-block">
+                            <div class="log_chat_area d-flex align-items-end">
+                                <a href="{% url 'dashboard' %}" data-scroll-nav="0"
+                                   class="say_hi">{% trans "Hi" %}, {{ user.username }}</a>&nbsp;&nbsp;
+                                <a href="javascript:{document.getElementById('logout').submit()}" data-scroll-nav="0"
+                                   class="say_hi">{% trans "Logout" %}</a>
+                                <form action="{% url 'logout' %}" method="POST" id="logout">
+                                    {% csrf_token %}
+                                    <input type="hidden">
+                                </form>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-2 d-none d-lg-block">
+                            <div class="log_chat_area d-flex align-items-end">
+                                <!-- <a href="#get_in_tauch_area" data-scroll-nav="0" class="say_hi">Say Hi</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                <a href="{% url 'register' %}" data-scroll-nav="0"
+                                   class="say_hi">{% trans "Register" %}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="{% url 'login' %}" data-scroll-nav="0" class="say_hi">{% trans "Login" %}</a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="lang-form">
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language" class="dropdown-toggle">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                                selected{% endif %}>
+                            {{ language.name_local }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go" class="btn btn-sm">
+            </form>
+
+        </div>
+    </div>
+
+
+</header>

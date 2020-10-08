@@ -1,0 +1,537 @@
+<!-- TODO: CHANGES THIS ALL FORM INTO BOOTSTRAP FORM -->
+<!-- TODO: AVOID USING THE NAVBAR AT THE HEADER -->
+
+{% load static %} {% load i18n %} {% load l10n %} {% block content %}
+
+<!-- CSS here -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+<!-- Todo: Change to static asset -->
+
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/themify-icons.css' %}" />
+<link rel="stylesheet" href="{% static 'css/nice-select.css' %}" />
+<link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
+<link rel="stylesheet" href="{% static 'css/gijgo.css' %}" />
+<link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/slick.css' %}" />
+<link rel="stylesheet" href="{% static 'css/slicknav.css' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<link rel="stylesheet" href="{% static 'css/introjs.css' %}" />
+
+<style>
+  /* Split the screen in half */
+
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  /* Control the left side */
+
+  .left {
+    left: 0;
+    /* background-color: black; */
+  }
+
+  /* Control the right side */
+
+  .right {
+    right: 0;
+    /* background-color: ; */
+  }
+
+  /* If you want the content centered horizontally and vertically */
+  /*.centered }
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }*/
+</style>
+
+{% if user.is_authenticated %}
+
+<div class="split left">
+  <!-- <div class="row"> -->
+  <!-- <div class="col s9 m8"> -->
+  <div id="map-wraper">
+    <div id="map" style="height: 100%;"></div>
+  </div>
+</div>
+
+<!-- <div class="split right">
+    <h3>Please Fill Out The Request Form</h3>
+    <div class="container">
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+    </div> -->
+
+<div class="split right">
+  <div class="col s3 m4">
+    <div class="card">
+      <form
+        method="POST"
+        action="{% url 'map' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %} {% if user.is_authenticated %}
+        <input type="hidden" name="user_id" value="{{ user.id }}" /> {% else %}
+        <input type="hidden" name="user_id" value="0" /> {% endif %}
+
+        <!-- Change to Bootstrap like trav -->
+        <i
+          class="fa fa-question-circle take-tour-again"
+          style="float: right;"
+          aria-hidden="true"
+        ></i>
+        <h5
+          style="text-align: center; font-size: x-large;"
+          class="introduction"
+        >
+          Please Fill Out The Request Form
+          <!-- <a href="#" class="take-tour-again">T</a> -->
+        </h5>
+        <hr />
+        <hr />
+        <div class="card-content white-text">
+          <div class="form-group">
+            <div class="input-field col s12">
+              <input
+                disabled
+                value="ETRSS-1"
+                id="disabled"
+                type="text"
+                class="validate form-control"
+              />
+              <!-- <label for="disabled">Satellite</label> -->
+            </div>
+          </div>
+          <!--
+                    <div class="form-group">
+                        <div class="input-field col s12">
+                            <input disabled value="{{ user.organization }}" id="disabled" type="text" class="validate form-control">
+                        </div>
+                    </div> -->
+
+          <!-- 
+                        <div class="tooltip">Hover over me
+                            <span class="tooltiptext">Tooltip text</span>
+                        </div> -->
+
+          <div class="form-group">
+            <div class="input-field col">
+              <input
+                id="latitude"
+                name="latitude"
+                type="text"
+                class="validate green-text form-control step-one"
+                placeholder="Latitude"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-field col s12">
+              <input
+                id="longitude"
+                name="longitude"
+                type="text"
+                class="validate green-text form-control"
+                placeholder="Longitude"
+              />
+            </div>
+          </div>
+
+          <!-- End User Information -->
+
+          <!-- <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="organization" name="organization" type="text" class="validate green-text form-control" placeholder="Requesting Organization"></div>
+                        </div> -->
+          <input
+            id="organization"
+            name="organization"
+            type="hidden"
+            value="{{ user.organization }}"
+          />
+
+          <!-- <div class="form-group"> -->
+          <!-- <div class="input-field col s12"> -->
+          <input
+            id="request_date"
+            name="request_date"
+            type="hidden"
+            class="validate green-text form-control"
+            placeholder="Date"
+          />
+          <!-- </div> -->
+
+          <!-- <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="country" name="country" type="text" class="validate green-text form-control" placeholder="Country"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="city" name="city" type="text" class="validate green-text form-control" placeholder="City"></div>
+                        </div> -->
+
+          <!-- <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="department" name="department" type="text" class="validate green-text form-control" placeholder="Division/Department"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="email" name="email" type="email" class="validate green-text form-control" placeholder="Email"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="address" name="address" type="text" class="validate green-text form-control" placeholder="Address"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-field col s12">
+                                <input id="phone" name="phone" type="text" class="validate green-text form-control" placeholder="Phone/Fax"></div>
+                        </div> -->
+
+          <hr />
+
+          <!-- Application Fields -->
+          <div class="form-group col-lg-12">
+            <label style="color: darkolivegreen;">Application Field</label>
+            <select
+              id="applicationField"
+              name="applicationField"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="Agriculture" selected>Agriculture</option>
+              <option value="Defence and Security">Defence and Security</option>
+              <option value="Mapping">Mapping</option>
+              <option value="Urban planning">Urban planning</option>
+              <option value="Fire monitor">Fire monitor</option>
+              <option value="Land management">Land management</option>
+              <option value="Hydrology">Hydrology</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Forest inventory">Forest inventory</option>
+              <option value="Hazards">Hazards</option>
+              <option value="Maritime and coastal">Maritime and coastal</option>
+              <option value="Water management">Water management</option>
+              <option value="Pollution monitor">Pollution monitor</option>
+              <option value="Mining mineral">Mining mineral</option>
+              <option value="Disaster monitoring and response planning"
+                >Disaster monitoring and response planning
+              </option>
+              <option value="Academia">Academia</option>
+            </select>
+          </div>
+
+          <!-- Programming Service -->
+          <div class="form-group col-lg-12">
+            <label style="color: darkolivegreen;">Programming Service</label>
+            <hr />
+            <label style="color: grey;">Order Type</label>
+            <select
+              id="orderType"
+              name="orderType"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="Archive (>90 days)" selected
+                >Archive (>90 days)</option
+              >
+              <option value="New tasking (more than 90days)"
+                >New tasking (<90days)</option
+              >
+              <option value="Standard tasking">Standard tasking</option>
+              <option value="Priority tasking">Priority tasking</option>
+              <option value="Emergency tasking">Emergency tasking</option>
+            </select>
+
+            <!-- Product Level -->
+            <label style="color: grey;">Product Level</label>
+            <select
+              id="productLevel"
+              name="productLevel"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="Raw data (Level-0)" selected
+                >Raw data (Level-0)</option
+              >
+              <option value="Level-1">Level-1 (<90days)</option>
+              <option value="Level-2A">Level-2A</option>
+              <option value="Level-2B">Level-2B</option>
+              <option value="Level-3">Level-3</option>
+              <option value="Level-4">Level-4</option>
+            </select>
+          </div>
+
+          <!-- Define AOI -->
+          <!-- Surface, KML/KMZ and Shape file upload -->
+
+          <div class="form-group col-lg-12">
+            <label style="color: darkolivegreen;" data-toggle="tooltip" data-placement="right" title="Area of Interest">Define AOI</label>
+            <hr />
+
+            <div class="form-group">
+              <div class="form-group col-lg-6">
+                <label for="kmlKmz" style="color: grey;" data-toggle="tooltip" data-placement="right" title="For geographic annotations & visualization"
+                  >KMZ/KML file (if any)</label
+                >
+                <input
+                  id="kmlKmz"
+                  name="kmlKmz"
+                  type="file"
+                  class="validate green-text form-control"
+                  placeholder="KML/KMZ"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-field col s12">
+                <label for="kmlKmz" style="color: grey;" data-toggle="tooltip" data-placement="right" title="For geometric location and attribute information"
+                  >Shape file (if any)</label
+                >
+                <input
+                  id="shapeFile"
+                  name="shapeFile"
+                  type="file"
+                  class="validate green-text form-control"
+                  placeholder="Shape File"
+                />
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <!-- Delivery media requested -->
+          <div class="form-group col-lg-6">
+            <label style="color: darkolivegreen;">Delivery Media</label>
+            <select
+              id="delivery_media"
+              name="delivery_media"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="FTP" selected>FTP / Cloud</option>
+              <option value="DVD">DVD</option>
+              <option value="BOTH">Both</option>
+            </select>
+          </div>
+
+          <hr />
+          <!-- Data format requested -->
+          <div class="form-group col-lg-6">
+            <label style="color: darkolivegreen;"> Data Format</label>
+            <select
+              id="data_format"
+              name="data_format"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="TIFF" selected>TIFF</option>
+              <option value="JPEG">JPEG</option>
+              <option value="PDF">PDF</option>
+            </select>
+          </div>
+
+          <!-- Satellite Source and Cloud Cover info -->
+          <div class="form-group col-lg-12">
+            <label style="color: darkolivegreen;">
+              Satellite Source and Cloud Cover Information</label
+            >
+            <hr />
+            <label style="color: grey;"> Satellite Source </label>
+            <select
+              id="satellite_source"
+              name="satellite_source"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="ETRSS-1" selected>ETRSS-1</option>
+              <option value="ETRSS-1 Augumentation"
+                >ETRSS-1 Augumentation</option
+              >
+              <option value="Other Satellites">Other Satellites</option>
+            </select>
+
+            <label style="color: grey;"> Cloud Cover </label>
+            <select
+              id="cloud_cover"
+              name="cloud_cover"
+              class="browser-default custom-select mb-4"
+            >
+              <option value="" disabled>-- Choose Option --</option>
+              <option value="0%" selected>0%</option>
+              <option value="<10%"><10%</option>
+              <option value="<20%"><20%</option>
+              <option value="<30%"><30%</option>
+            </select>
+          </div>
+
+          <!-- Validation Criteria -->
+
+          <!-- Special Requests notes / NTO Additional descriptions AOI additional descriptions -->
+          <!-- nto_additional_descriptions aoi_additional_descriptions -->
+
+          <div class="form-group col-lg-12">
+            <label style="color: darkolivegreen;"> Validation Criteria</label>
+            <hr />
+            <label style="color: grey;">
+              Special Requests Notes / NTO Additional Descriptions
+            </label>
+            <textarea
+              class="form-control"
+              name="nto_additional_descriptions"
+              id="nto_additional_descriptions"
+              cols="70"
+              rows="5"
+              placeholder="Write any of your custom special requirements here (if any).. "
+            ></textarea>
+            <br />
+            <br />
+            <label style="color: grey;"> AOI Additional Descriptions </label>
+            <textarea
+              class="form-control"
+              name="aoi_additional_descriptions "
+              id="aoi_additional_descriptions "
+              cols="70 "
+              rows="5 "
+              placeholder="Write your custom area of interest requirements here (if any).. "
+            ></textarea>
+          </div>
+          <hr />
+          <!-- Authorization Issue -->
+          <!-- Date, Signature -->
+
+          <div class="form-group col-lg-12">
+            <label style="color: darkolivegreen;">
+              Confirmation and Authentication</label
+            >
+            <input
+              id="confirmation_email"
+              name="confirmation_email"
+              type="email"
+              required="True"
+              class="validate green-text form-control"
+              placeholder="Email for Confirmation"
+            />
+            <!-- <label for="email " data-error="wrong " data-success="right ">Email for Confirmation</label> -->
+          </div>
+
+          <div class="form-group">
+            <div class="input-field col s12">
+              <input
+                id="contact_person"
+                name="contact_person"
+                type="text"
+                class="validate green-text form-control"
+                placeholder="Contact Person Name"
+              />
+            </div>
+          </div>
+
+          <hr />
+          <br />
+          <div class="form-group col-lg-12">
+            <div class="form-group" style="text-align: center;">
+              <button
+                type="submit"
+                id="save"
+                value="save"
+                class="btn btn-primary"
+              >
+                Send Request
+              </button>
+              <a id="show" href="{% url 'dashboard' %}" class="btn btn-lg"
+                >Go to Dashboard</a
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+      {% for st in string %}
+      <div class="container">
+        <div class="alert alert-info alert-dismissible fade in">
+          <a href="# " class="close" data-dismiss="alert " aria-label="close "
+            >&times;</a
+          >
+          <strong>{{ st }}</strong>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js "></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js "></script>
+<script src="{% static 'js/app.js' %}"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script> -->
+
+<script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdpNjjfGQav-56Ee4d6TYH1zJSjKAiup0&callback=initMap"
+></script>
+
+<script src="{% static 'js/maploader.js' %} "></script>
+<!-- TODO: CHANGE TO STATIC ASSET -->
+<script src="{% static 'js/intro.min.js' %} "></script>
+<script src="{% static 'js/tsegabeginnow.js' %} "></script>
+
+<!-- JS here -->
+<script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/ajax-form.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'js/scrollIt.js' %}"></script>
+<script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/gijgo.min.js' %}"></script>
+
+<!--contact js-->
+<script src="{% static 'js/contact.js' %}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/mail-script.js' %}"></script>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+
+{% else %}
+
+  {% include 'accounts/login.html' %}
+
+{% endif %}
+
+
+
+{% endblock %}
